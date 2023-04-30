@@ -17,6 +17,7 @@ const saveNote = (notes) => {
 
 const add = (title, body) => {
     const notes = loadNotes()
+    console.log(typeof notes)
     var isDuplicate = false
     if (notes.length > 0) {
         notes.forEach(note => {
@@ -49,8 +50,27 @@ const remove = (title) => {
     return { type: 'warning', message: 'Currently there are no notes in DB' }
 }
 
+const listNotes = () => {
+    return loadNotes()
+}
+
+const readNote = (title) => {
+    var notes = loadNotes()
+    if (notes.length > 0) {
+        var tempNotes = notes.filter(note => note.title === title)
+        if (tempNotes.length === 0) {
+            return { type: 'warning', message: 'Note not found with name ' + title }
+        }
+        return { type: 'success', data: tempNotes[0] }
+    } else {
+        return { type: 'warning', message: 'Currently there are no notes in DB' }
+    }
+}
+
 
 module.exports = {
     add,
-    remove
+    remove,
+    listNotes,
+    readNote
 }

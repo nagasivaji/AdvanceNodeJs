@@ -63,18 +63,48 @@ yargs.command({
 
 
 yargs.command({
-    command: 'list',
+    command: 'listNotes',
     describe: 'listing all notes',
-    handler: () => {
-        console.log('Displaying all notes...')
+    handler: (argv) => {
+        const res = notes.listNotes()
+        if (res.length < 1) {
+            console.log(chalk.blue('No notes found in DB'))
+        } else {
+            res.forEach(note => {
+                console.log(chalk.blue(note.title))
+            })
+        }
     }
 })
 
 yargs.command({
-    command: 'read',
+    command: 'readNote',
     describe: 'reading a note',
-    handler: () => {
-        console.log('Reading a note...')
+    builder: {
+        title: {
+            describe: 'note title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: (argv) => {
+        const res = notes.readNote(argv.title)
+        if (res.type === 'warning') {
+            printResult(res.type, res.message)
+        } else {
+            const outlineLength = res.data.body.length + 13
+                // console.log(outlineLength)
+            var outline = ''
+            for (var i = 0; i < outlineLength; i++) {
+                outline += '-'
+            }
+
+            // result with box here
+            console.log(chalk.gray(outline))
+            console.log(chalk.gray('|'), chalk.blue(' title: '), chalk.green(res.data.title), chalk.gray('|'))
+            console.log(chalk.gray('|'), chalk.blue(' body : '), chalk.green(res.data.body), chalk.gray('|'))
+            console.log(chalk.gray(outline))
+        }
     }
 })
 
