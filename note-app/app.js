@@ -1,4 +1,7 @@
 const yargs = require('yargs');
+// const chalk = require('chalk');
+const notes = require('./notes');
+// console.log(chalk.red("Welcome to"))
 
 yargs.command({
     command: 'add',
@@ -16,21 +19,33 @@ yargs.command({
         }
     },
     handler: (argv) => {
-        console.log('Adding note...')
-        console.log('title: ' + argv.title)
-        console.log('body: ' + argv.body)
+        // console.log('Adding note...')
+        // console.log('title: ' + argv.title)
+        // console.log('body: ' + argv.body)
+        const res = notes.add(argv.title, argv.body)
+        console.log(res)
     }
 })
 
-// cmd: ode app.js add --title="meeting@10AM" --body="Dev weekly syncup call"
+// cmd: node app.js add --title="meeting@10AM" --body="Dev weekly syncup call"
 
 yargs.command({
     command: 'remove',
     describe: 'removing a note',
-    handler: function() {
-        console.log('Deleting note...')
+    builder: {
+        title: {
+            describe: 'note title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function(argv) {
+        const res = notes.remove(argv.title)
+        console.log(res)
     }
 })
+
+// cmd: node app.js remove --title="sivaji"
 
 
 yargs.command({
