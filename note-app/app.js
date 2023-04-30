@@ -1,16 +1,22 @@
-const validator = require('validator')
-    // const utils = require('./utils')
+const yargs = require('yargs');
 
-// console.log(utils.myName)
-// console.log(utils.getFullName())
+// const cmd = yargs.argv
+// console.log(cmd)
 
-// To init npm in our project use npm intt in root project directory
+yargs.command({
+    command: 'add',
+    describe: 'add a new note',
+    handler: () => {
+        console.log('Adding new note...')
+    }
+})
 
-// Validating Email using validator npm module
-console.log(validator.isEmail('sivaji'))
-console.log(validator.isEmail('sivaji@gmail.com'))
+yargs.command({
+    command: 'remove',
+    describe: 'removing a note',
+    handler: function() {
+        console.log('Deleting note...')
+    }
+})
 
-// Taking input from user using cmdline
-
-console.log('Actual input array: ', process.argv)
-console.log('Required Input from terminal: ', process.argv.slice(2))
+yargs.parse()
