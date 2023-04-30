@@ -9,3 +9,8 @@ const validator = require('validator')
 // Validating Email using validator npm module
 console.log(validator.isEmail('sivaji'))
 console.log(validator.isEmail('sivaji@gmail.com'))
+
+// Taking input from user using cmdline
+
+console.log('Actual input array: ', process.argv)
+console.log('Required Input from terminal: ', process.argv.slice(2))
