@@ -1,7 +1,19 @@
-const yargs = require('yargs');
-// const chalk = require('chalk');
-const notes = require('./notes');
-// console.log(chalk.red("Welcome to"))
+const yargs = require('yargs')
+const chalk = require('chalk')
+const notes = require('./notes')
+
+
+const printResult = (type, message) => {
+    if (type === 'success') {
+        console.log(chalk.green(message))
+    } else if (type === 'error') {
+        console.log(chalk.red(message))
+    } else if (type === 'warning') {
+        console.log(chalk.yellow(message))
+    } else {
+        console.log(chalk.blue(message))
+    }
+}
 
 yargs.command({
     command: 'add',
@@ -23,7 +35,8 @@ yargs.command({
         // console.log('title: ' + argv.title)
         // console.log('body: ' + argv.body)
         const res = notes.add(argv.title, argv.body)
-        console.log(res)
+            // console.log(res)
+        printResult(res.type, res.message)
     }
 })
 
@@ -41,7 +54,8 @@ yargs.command({
     },
     handler: function(argv) {
         const res = notes.remove(argv.title)
-        console.log(res)
+            // console.log(res)
+        printResult(res.type, res.message)
     }
 })
 

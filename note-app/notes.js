@@ -27,11 +27,11 @@ const add = (title, body) => {
     }
 
     if (isDuplicate) {
-        return 'Note already exists'
+        return { type: 'error', message: 'Note already exists' }
     }
     notes.push({ title, body })
     saveNote(notes)
-    return 'Note added successfully'
+    return { type: 'success', message: 'Note added successfully' }
 }
 
 
@@ -41,12 +41,12 @@ const remove = (title) => {
         var tempNotes = notes.filter(note => note.title !== title)
         if (tempNotes.length !== notes.length) {
             saveNote(tempNotes)
-            return 'Note removed successfully'
+            return { type: 'success', message: 'Note removed successfully' }
         } else {
-            return 'Note not found'
+            return { type: 'error', message: 'Note not found' }
         }
     }
-    return 'Currently there no notes in DB'
+    return { type: 'warning', message: 'Currently there are no notes in DB' }
 }
 
 
