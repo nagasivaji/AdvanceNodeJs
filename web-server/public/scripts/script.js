@@ -1,0 +1,1 @@
+console.log('hello this is from script.js file  under public directory...')
