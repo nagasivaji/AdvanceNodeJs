@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web serever</title>
+</head>
+
+<body>
+    <h2>
+        This is from Static HTML About Page
+    </h2>
+
+    <h3>Note: </h3>
+    <p>
+        Even though we have app.get('/') Its redirected to index.html because /index.html is same as / So it overriden from app.js
+    </p>
+    <p>
+        But in case of about its about it's different. <br> 1. If we just add about is will redirect to route which is specified in app.js file insted to about.html page <br> 2. If we specify about.html in url the only it will redirect to about.html page.
+        This is because about.html is not a default one as index.html
+    </p>
+</body>
+
+</html>

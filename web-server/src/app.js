@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
     res.send({
-        id: 2,
+        id: 3,
         page: 'about',
         titile: 'About',
         description: 'This is from about page!',
