@@ -10,9 +10,17 @@
 </head>
 
 <body>
+    {{!-- Inserting header from partials here --}}
+    {{>header}} 
+    <p>Nodte: nodemon src/app.js -e js, hbs</p>
+    {{!-- Run abouve cmd so that nodemon also detect the changes in hbs files other wise it will be defaul to js files only --}}
+
+    {{!-- Boady --}}
     <h1>Hey, this is from HBS file!</h1>
     <h2>{{ firstname }}</h2>
     <h2>{{ lastname}}</h2>
+
+    {{!-- Footer --}}
 
     <script src="scripts/script.js"></script>
 </body>
