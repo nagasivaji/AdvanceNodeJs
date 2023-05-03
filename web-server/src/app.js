@@ -18,17 +18,26 @@ app.use(express.static(path.join(__dirname, '../public')))
 
 app.get('/', (req, res) => {
     res.render('index', {
-        firstname: 'nagasivaji',
-        lastname: 'sirigineedi',
-        title: 'Home Page'
+        title: 'Home Page',
+        description: 'Welcome to this weather application!!!'
     })
 })
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'About Page'
+        title: 'About Page',
+        firstname: 'nagasivaji',
+        lastname: 'sirigineedi'
     })
 })
+
+app.get('/help', (req, res) => {
+    res.render('help', {
+        title: 'Help Page',
+        data: 'Please enter your quire here...'
+    })
+})
+
 
 
 
