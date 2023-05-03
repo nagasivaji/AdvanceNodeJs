@@ -39,6 +39,10 @@ app.get('/help', (req, res) => {
 })
 
 
+app.get('*', (req, res) => {
+    res.render('error')
+})
+
 
 
 app.listen(3000, () => {
