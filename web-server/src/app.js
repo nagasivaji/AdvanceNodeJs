@@ -20,12 +20,14 @@ app.get('/', (req, res) => {
     res.render('index', {
         firstname: 'nagasivaji',
         lastname: 'sirigineedi',
-        title: 'Software Engineer'
+        title: 'Home Page'
     })
 })
 
 app.get('/about', (req, res) => {
-    res.render('about')
+    res.render('about', {
+        title: 'About Page'
+    })
 })
 
 
