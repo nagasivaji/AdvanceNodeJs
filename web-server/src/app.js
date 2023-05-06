@@ -42,21 +42,31 @@ app.get('/help', (req, res) => {
 
 
 const getWeather = async(location, res) => {
-    const response = await fetch('http://api.weatherstack.com/current?access_key=ed3ea9627bb950b22b35cd2b31f98c44&query=' + location)
-    const json = await response.json()
-        // console.log(json)
-    const data = {
-        city: json.location.name,
-        country: json.location.country,
-        temperature: json.current.temperature,
-        humidity: json.current.humidity,
-        windSpeed: json.current.wind_speed
+    try {
+        const response = await fetch('http://api.weatherstack.com/current?access_key=ed3ea9627bb950b22b35cd2b31f98c44&query=' + location)
+        const json = await response.json()
+            // console.log(json)
+        const data = {
+            city: json.location.name,
+            country: json.location.country,
+            temperature: json.current.temperature,
+            humidity: json.current.humidity,
+            windSpeed: json.current.wind_speed
+        }
+        res.send(data)
+    } catch (err) {
+        if (err.name === 'TypeError') {
+            res.send({
+                message: 'Please enter a valid location',
+                errorMessage: err.message
+            })
+        }
+        res.send(err.message)
     }
-    res.send(data)
 }
 
 app.get('/test', (req, res) => {
-    // console.log('Location: ', req.query.location)
+    console.log('Location: ', req.query.location)
     const location = req.query.location
     getWeather(location, res)
 })
