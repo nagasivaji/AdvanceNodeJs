@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express')
-const hbs = require('hbs')
+const hbs = require('hbs');
+const { get } = require('http');
 
 const app = express()
 
@@ -36,6 +37,41 @@ app.get('/help', (req, res) => {
         title: 'Help Page',
         data: 'Please enter your quire here...'
     })
+})
+
+const getWeatherMd1 = (location, res) => {
+    console.log('Calling api...')
+    fetch('http://api.weatherstack.com/current?access_key=ed3ea9627bb950b22b35cd2b31f98c44&query=' + location)
+        .then(response => response.json())
+        .then(json => {
+            console.log('Received response: ', json.location.name)
+            console.log('Sending responsed....')
+            res.send(json)
+        })
+        .catch(err => console.log('Error: ', err))
+    console.log('End of api function....')
+}
+
+const getWeatherMd2 = async(location, res) => {
+    console.log('Calling api...')
+    const response = await fetch('http://api.weatherstack.com/current?access_key=ed3ea9627bb950b22b35cd2b31f98c44&query=' + location)
+    const json = await response.json()
+    console.log('Received response: ', json.location.name)
+    console.log('Sending responsed....')
+    res.send(json)
+    console.log('End of api function....')
+}
+
+app.get('/test', (req, res) => {
+    console.log('Location: ', req.query.location)
+
+    // Using promises and .then() 
+    // getWeatherMd1('India', res)
+
+    // Using async/await
+    getWeatherMd2('India', res)
+
+    console.log('End of test route')
 })
 
 
