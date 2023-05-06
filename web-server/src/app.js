@@ -39,39 +39,26 @@ app.get('/help', (req, res) => {
     })
 })
 
-const getWeatherMd1 = (location, res) => {
-    console.log('Calling api...')
-    fetch('http://api.weatherstack.com/current?access_key=ed3ea9627bb950b22b35cd2b31f98c44&query=' + location)
-        .then(response => response.json())
-        .then(json => {
-            console.log('Received response: ', json.location.name)
-            console.log('Sending responsed....')
-            res.send(json)
-        })
-        .catch(err => console.log('Error: ', err))
-    console.log('End of api function....')
-}
 
-const getWeatherMd2 = async(location, res) => {
-    console.log('Calling api...')
+
+const getWeather = async(location, res) => {
     const response = await fetch('http://api.weatherstack.com/current?access_key=ed3ea9627bb950b22b35cd2b31f98c44&query=' + location)
     const json = await response.json()
-    console.log('Received response: ', json.location.name)
-    console.log('Sending responsed....')
-    res.send(json)
-    console.log('End of api function....')
+        // console.log(json)
+    const data = {
+        city: json.location.name,
+        country: json.location.country,
+        temperature: json.current.temperature,
+        humidity: json.current.humidity,
+        windSpeed: json.current.wind_speed
+    }
+    res.send(data)
 }
 
 app.get('/test', (req, res) => {
-    console.log('Location: ', req.query.location)
-
-    // Using promises and .then() 
-    // getWeatherMd1('India', res)
-
-    // Using async/await
-    getWeatherMd2('India', res)
-
-    console.log('End of test route')
+    // console.log('Location: ', req.query.location)
+    const location = req.query.location
+    getWeather(location, res)
 })
 
 
