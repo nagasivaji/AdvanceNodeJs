@@ -55,17 +55,21 @@ const getWeather = async(location, res) => {
         }
         res.send(data)
     } catch (err) {
+        // console.log('Error: ', err.name)
+        // console.log('E:', err)
         if (err.name === 'TypeError') {
             res.send({
-                message: 'Please enter a valid location',
+                isError: true,
+                errorTitle: 'Please enter a valid location',
                 errorMessage: err.message
             })
+        } else {
+            res.send(err)
         }
-        res.send(err.message)
     }
 }
 
-app.get('/test', (req, res) => {
+app.get('/weather', (req, res) => {
     console.log('Location: ', req.query.location)
     const location = req.query.location
     getWeather(location, res)
