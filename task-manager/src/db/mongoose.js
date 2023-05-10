@@ -23,13 +23,37 @@ const User = mongoose.model('User', {
 
 // Creating a new Document 
 // User Document (Asume Document as an object in JavaScript)
-const me = new User({
-    name: 'NagaSivaji',
-    age: 23
+// const me = new User({
+//     name: 'NagaSivaji',
+//     age: 23
+// })
+
+// // Saving the Document
+// me.save()
+//     .then(result => {
+//         console.log(result)
+//     })
+//     .catch(err => {
+//         console.log(err)
+//     })
+
+
+const Task = mongoose.model('Task', {
+    description: {
+        type: String,
+        required: true
+    },
+    completed: {
+        type: Boolean,
+        default: false // Default value as a false
+    }
 })
 
-// Saving the Document
-me.save()
+const task = new Task({
+    description: 'Learn Mongoose  library',
+})
+
+task.save()
     .then(result => {
         console.log(result)
     })
