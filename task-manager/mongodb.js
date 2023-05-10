@@ -20,4 +20,16 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (err, client) => {
 
     console.log('Connected to MongoDB')
 
+    // Create or Connect to existing database
+    const db = client.db(databaseName)
+
+    // Create collection (like a table)
+    const collection = db.collection('users')
+
+    // Insert a document
+    collection.insertOne({
+        name: 'Sivaji',
+        age: 23
+    })
+
 })
