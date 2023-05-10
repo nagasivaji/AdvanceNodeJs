@@ -41,15 +41,15 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (err, client) => {
 
     // Inserting multiple documents
     // collection.insertMany([{
-    //         name: 'S1',
+    //         name: 'S',
     //         age: 30
     //     },
     //     {
-    //         name: 'S2',
+    //         name: 'S',
     //         age: 40
     //     },
     //     {
-    //         name: 'S3',
+    //         name: 'S',
     //         age: 50
     //     }
     // ], (error, result) => {
@@ -62,22 +62,43 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (err, client) => {
     // })
 
     // Find all documents
-    collection.find({}).toArray((error, result) => {
+    // collection.find({}).toArray((error, result) => {
+    //     if (error) {
+    //         return console.log('Error while finding the document')
+    //     }
+
+    //     console.log('Documents found successfully')
+    //     console.log(result)
+    // })
+
+    // // Find a single document
+    // collection.findOne({ _id: mongodb.ObjectId("645b6efbe388d4ce7ac1a83e") }, (error, result) => {
+    //     if (error) {
+    //         return console.log('Error while finding the document')
+    //     }
+
+    //     console.log('Document found successfully')
+    //     console.log(result)
+    // })
+
+
+    //updating a single document
+    collection.updateOne({ _id: mongodb.ObjectId("645b6efbe388d4ce7ac1a83f") }, { $set: { name: 'Sivaji1' } }, (error, result) => {
         if (error) {
-            return console.log('Error while finding the document')
+            return console.log('Error while updating the document')
         }
 
-        console.log('Documents found successfully')
+        console.log('Document updated successfully')
         console.log(result)
     })
 
-    // Find a single document
-    collection.findOne({ _id: mongodb.ObjectId("645b6efbe388d4ce7ac1a83e") }, (error, result) => {
+    // updating multiple documents
+    collection.updateMany({ name: 'S' }, { $set: { name: 'Sivaji' } }, (error, result) => {
         if (error) {
-            return console.log('Error while finding the document')
+            return console.log('Error while updating  documents')
         }
 
-        console.log('Document found successfully')
+        console.log('Documnets updated successfully')
         console.log(result)
     })
 
