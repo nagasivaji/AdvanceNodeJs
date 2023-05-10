@@ -61,4 +61,13 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (err, client) => {
         console.log(result)
     })
 
+
+    // Drop all documents i.e Dropping a collection
+    collection.drop((error, result) => {
+        if (error) {
+            return console.log('Error while dropping the document')
+        }
+
+        console.log('Document dropped successfully')
+    })
 })
