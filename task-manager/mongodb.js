@@ -39,4 +39,26 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (err, client) => {
         console.log(result)
     })
 
+    // Inserting multiple documents
+    collection.insertMany([{
+            name: 'S1',
+            age: 30
+        },
+        {
+            name: 'S2',
+            age: 40
+        },
+        {
+            name: 'S3',
+            age: 50
+        }
+    ], (error, result) => {
+        if (error) {
+            return console.log('Error while inserting the document')
+        }
+
+        console.log('Document inserted successfully')
+        console.log(result)
+    })
+
 })
