@@ -30,6 +30,13 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (err, client) => {
     collection.insertOne({
         name: 'Sivaji',
         age: 23
+    }, (error, result) => { // Callback fucntion for Inset operation
+        if (error) {
+            return console.log('Error while inserting the document')
+        }
+
+        console.log('Document inserted successfully')
+        console.log(result)
     })
 
 })
