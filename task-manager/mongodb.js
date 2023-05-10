@@ -69,5 +69,15 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (err, client) => {
         }
 
         console.log('Document dropped successfully')
+        console.log(result)
+    })
+
+    client.close((error, result) => {
+        if (err) {
+            return console.log('Unable to close connection')
+        }
+
+        console.log('Connection closed')
+        console.log(result)
     })
 })
