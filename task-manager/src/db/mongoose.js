@@ -1,6 +1,9 @@
 // Importing Mongoose module
 const mongoose = require('mongoose')
 
+// Importing validator module
+const validator = require('validator')
+
 // Mongo Db Connection URL to Database
 const connectionUrl = 'mongodb://127.0.0.1:27017/task-manager-api'
 
@@ -15,6 +18,15 @@ const User = mongoose.model('User', {
         type: String,
         required: true // Throws error is we do not specify name
     },
+    email: {
+        type: String,
+        required: true,
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error('Email is not valid')
+            }
+        }
+    },
     age: {
         type: Number,
         validate(value) {
@@ -28,19 +40,20 @@ const User = mongoose.model('User', {
 
 // Creating a new Document 
 // User Document (Asume Document as an object in JavaScript)
-// const me = new User({
-//     name: 'NagaSivaji',
-//     age: 23
-// })
+const me = new User({
+    name: 'NagaSivaji',
+    email: 'anpch@example.com',
+    age: 23
+})
 
 // // Saving the Document
-// me.save()
-//     .then(result => {
-//         console.log(result)
-//     })
-//     .catch(err => {
-//         console.log(err)
-//     })
+me.save()
+    .then(result => {
+        console.log(result)
+    })
+    .catch(err => {
+        console.log(err)
+    })
 
 
 const Task = mongoose.model('Task', {
@@ -58,10 +71,10 @@ const task = new Task({
     description: 'Learn Mongoose  library',
 })
 
-task.save()
-    .then(result => {
-        console.log(result)
-    })
-    .catch(err => {
-        console.log(err)
-    })
+// task.save()
+//     .then(result => {
+//         console.log(result)
+//     })
+//     .catch(err => {
+//         console.log(err)
+//     })
