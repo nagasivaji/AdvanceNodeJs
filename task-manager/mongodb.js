@@ -83,22 +83,42 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (err, client) => {
 
 
     //updating a single document
-    collection.updateOne({ _id: mongodb.ObjectId("645b6efbe388d4ce7ac1a83f") }, { $set: { name: 'Sivaji1' } }, (error, result) => {
+    // collection.updateOne({ _id: mongodb.ObjectId("645b6efbe388d4ce7ac1a83f") }, { $set: { name: 'Sivaji1' } }, (error, result) => {
+    //     if (error) {
+    //         return console.log('Error while updating the document')
+    //     }
+
+    //     console.log('Document updated successfully')
+    //     console.log(result)
+    // })
+
+    // updating multiple documents
+    // collection.updateMany({ name: 'S' }, { $set: { name: 'Sivaji' } }, (error, result) => {
+    //     if (error) {
+    //         return console.log('Error while updating  documents')
+    //     }
+
+    //     console.log('Documnets updated successfully')
+    //     console.log(result)
+    // })
+
+    // Delete a single document
+    collection.deleteOne({ _id: mongodb.ObjectId("645b6efbe388d4ce7ac1a83e") }, (error, result) => {
         if (error) {
-            return console.log('Error while updating the document')
+            return console.log('Error while deleting the document')
         }
 
-        console.log('Document updated successfully')
+        console.log('Document deleted successfully')
         console.log(result)
     })
 
-    // updating multiple documents
-    collection.updateMany({ name: 'S' }, { $set: { name: 'Sivaji' } }, (error, result) => {
+    // Delete multiple documents
+    collection.deleteMany({ name: 'Sivaji' }, (error, result) => {
         if (error) {
-            return console.log('Error while updating  documents')
+            return console.log('Error while deleting  documents')
         }
 
-        console.log('Documnets updated successfully')
+        console.log('Documnets deleted successfully')
         console.log(result)
     })
 
