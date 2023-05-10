@@ -16,7 +16,12 @@ const User = mongoose.model('User', {
         required: true // Throws error is we do not specify name
     },
     age: {
-        type: Number
+        type: Number,
+        validate(value) {
+            if (value < 0) {
+                throw new Error('Age cannot be negative')
+            }
+        }
     }
 })
 
