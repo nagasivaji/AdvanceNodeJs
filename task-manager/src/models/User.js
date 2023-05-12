@@ -4,13 +4,11 @@ const mongoose = require('mongoose')
 // Importing validator module
 const validator = require('validator')
 
-
-// Creating Model (like creating Table with requires constraints in SQL)
-// User Collection (Asume Collection as a Class in JavaScript)
+// Creating User Model 
 const User = mongoose.model('User', {
     name: {
         type: String,
-        required: true, // Throws error is we do not specify name
+        required: true,
         trim: true,
     },
     email: {
