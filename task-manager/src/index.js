@@ -66,6 +66,27 @@ app.get('/users/:userId', (req, res) => {
     })
 })
 
+// updating users
+app.patch('/users/:userId', async(req, res) => {
+    const userId = req.params.userId
+    const userName = req.body.name
+    console.log(userName)
+    try {
+        const user = await User.findByIdAndUpdate(userId, { name: userName }, { new: true, runValidators: true })
+        console.log('User updated')
+        if (!user) {
+            res.status(404).send('No user found')
+        }
+        res.send(user)
+    } catch (err) {
+        console.log('Error updating users: ', err.message)
+        res.status(500).send('Error updating users')
+    }
+})
+
+
+
+/*  -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  */
 
 
 // Task Route
