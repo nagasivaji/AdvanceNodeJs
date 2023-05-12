@@ -1,34 +1,23 @@
-// Importing express
+// Importins
 const express = require('express')
 
-// Importing user Controllers
+// USer Controllers
 const {
     createUser,
     getUser,
     getAllUsers,
     updateUser,
     deleteUser
-} = require('./../controllers/User')
+} = require('./../controllers/UserController')
 
 
-// Creating express router
+// Express router
 const userRouter = express.Router()
-
-// User Routes
-// creating a new user
-userRouter.post('/', createUser)
-
-// Getting all the users 
 userRouter.get('/', getAllUsers)
-
-// Getting a single users
 userRouter.get('/:userId', getUser)
-
-// updating users
+userRouter.post('/', createUser)
 userRouter.patch('/:userId', updateUser)
-
-// Delete a user 
 userRouter.delete('/:userId', deleteUser)
 
-
+// Export
 module.exports = userRouter

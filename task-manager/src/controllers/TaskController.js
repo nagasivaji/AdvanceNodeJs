@@ -1,13 +1,13 @@
-// Importing Task model
-const Task = require('./../models/Task');
+// Imports
+const Task = require('./../models/TaskModel');
 
-// Task Route
-// creating a new Task
+
+// Controllers
 const createTask = async(req, res) => {
     const task = new Task(req.body)
 
-    await task.save().then((task) => {
-            console.log(task)
+    await task.save()
+        .then((task) => {
             res.send(task)
         })
         .catch((err) => {
@@ -15,36 +15,35 @@ const createTask = async(req, res) => {
         })
 }
 
-// Getting all tasks
+
 const getAllTasks = async(req, res) => {
-    console.log('Getting all tasks')
-    await Task.find().then((tasks) => {
-            console.log(tasks)
+    await Task.find()
+        .then((tasks) => {
             res.send(tasks)
         })
         .catch((err) => {
-            console.log('Error getting tasks: ', err.message)
-            res.status(500).send('Error getting tasks')
+            res.status(500).send('Error getting tasks', err.message)
         })
 }
 
-// Getting a single task
+
 const getTask = async(req, res) => {
     const taskId = req.params.taskId
 
-    await Task.findById(taskId).then((task) => {
-            console.log(task)
+    await Task.findById(taskId)
+        .then((task) => {
             if (!task) {
                 res.status(404).send('Task not found')
             }
             res.send(task)
         })
         .catch((err) => {
-            console.log('Error getting task: ', err.message)
-            res.status(500).send('Error getting task')
+            res.status(500).send('Error getting task', err.message)
         })
 }
 
+
+// Exports
 module.exports = {
     createTask,
     getTask,

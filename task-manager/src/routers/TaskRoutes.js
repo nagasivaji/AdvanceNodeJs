@@ -1,24 +1,21 @@
-// Importing express
+// Importins
 const express = require('express')
 
+
+// Test Controllers
 const {
     createTask,
     getAllTasks,
     getTask
-} = require('./../controllers/Task')
+} = require('./../controllers/TaskController')
 
 
-// Creating express router
+// Express router
 const taskRouter = express.Router()
-
-// Task Route
-// creating a new Task
+taskRouter.get('/', getAllTasks)
+taskRouter.get('/:taskId', getTask)
 taskRouter.post('/', createTask)
 
-// Getting all tasks
-taskRouter.get('/', getAllTasks)
 
-// Getting a single task
-taskRouter.get('/:taskId', getTask)
-
+// Exports
 module.exports = taskRouter

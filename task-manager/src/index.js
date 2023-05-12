@@ -1,42 +1,27 @@
-// Importing express module
+// Imports
 const express = require('express')
 
-// Loading mongoose to connect with DB
+// connecting to db
 require('./db/mongoose')
 
-// Importing user routes from routes folder
-const userRoutes = require('./routers/User')
 
-// Importing task routes from routes folder
-const taskRoutes = require('./routers/Task')
-
+// Routes
+const userRoutes = require('./routers/UserRoutes')
+const taskRoutes = require('./routers/TaskRoutes')
 
 
-
-// creatiing express app
+// Express app
 const app = express()
-
-// This will convert request type to jsson format
 app.use(express.json())
 
 
-
-
-
-// Diverting users apis getting from browser/postman to required routes file i.e 'routes/user.js'
+// Diverting routes
 app.use('/users', userRoutes)
-
-// Diverting users apis getting from browser/postman to required routes file i.e 'routes/task.js'
 app.use('/tasks', taskRoutes)
 
 
-
-
-
-// Getting port number for server to run
-const port = process.env.PORT || 3000
-
 // Listeing to server
+const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log('Server listening on port: ' + port)
 })
