@@ -85,6 +85,25 @@ app.patch('/users/:userId', async(req, res) => {
 })
 
 
+// Delete a user 
+app.delete('/users/:userId', async(req, res) => {
+    const userId = req.params.userId
+
+    try {
+        const user = await User.findByIdAndDelete(userId)
+        console.log(user)
+
+        if (!user) {
+            res.status(404).send('No user found')
+        }
+        res.send(user)
+    } catch (err) {
+        console.log('Error deleting user: ', err.message)
+        res.status(500).send('Error deleting user')
+    }
+})
+
+
 
 /*  -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  */
 
