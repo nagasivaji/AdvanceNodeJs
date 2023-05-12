@@ -21,6 +21,7 @@ app.use(express.json())
 
 
 // User Routes
+// creating a new user
 app.post('/users', (req, res) => {
     // console.log(req.body)
 
@@ -28,25 +29,85 @@ app.post('/users', (req, res) => {
     const user = new User(req.body)
 
     // saving this user to mongodb
-    user.save().then((response) => {
-        console.log(response)
-        res.send(response)
+    user.save().then((user) => {
+        console.log(user)
+        res.send(user)
     }).catch((err) => {
         console.log('Error saving user: ', err.message)
             // console.log(err)
+        res.status(500).send('Error saving user')
     })
 })
 
+// Getting all the users
+app.get('/users', (req, res) => {
+    User.find().then((users) => {
+        console.log(users)
+        res.send(users)
+    }).catch((err) => {
+        console.log('Error getting users: ', err.message)
+        res.status(500).send('Error getting users')
+    })
+})
+
+// Getting a single users
+app.get('/users/:userId', (req, res) => {
+    const userId = req.params.id
+
+    User.findById(userId).then((user) => {
+        console.log(user)
+        if (!user) {
+            res.status(404).send('No user found')
+        }
+        res.send(user)
+    }).catch((err) => {
+        console.log('Error getting users: ', err.message)
+        res.status(500).send('Error getting users')
+    })
+})
+
+
+
 // Task Route
+// creating a new Task
 app.post('/tasks', (req, res) => {
     const task = new Task(req.body)
 
-    task.save().then((response) => {
-            console.log(response)
-            res.send(response)
+    task.save().then((task) => {
+            console.log(task)
+            res.send(task)
         })
         .catch((err) => {
             console.log('Error saving task: ', err.message)
+        })
+})
+
+// Getting all tasks
+app.get('/tasks', (req, res) => {
+    Task.find().then((tasks) => {
+            console.log(tasks)
+            res.send(tasks)
+        })
+        .catch((err) => {
+            console.log('Error getting tasks: ', err.message)
+            res.status(500).send('Error getting tasks')
+        })
+})
+
+// Getting a single task
+app.get('/tasks/:taskId', (req, res) => {
+    const taskId = req.params.taskId
+
+    Task.findById(taskId).then((task) => {
+            console.log(task)
+            if (!task) {
+                res.status(404).send('Task not found')
+            }
+            res.send(task)
+        })
+        .catch((err) => {
+            console.log('Error getting task: ', err.message)
+            res.status(500).send('Error getting task')
         })
 })
 
