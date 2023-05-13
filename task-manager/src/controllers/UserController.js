@@ -10,7 +10,31 @@ const createUser = async(req, res) => {
         .then((user) => {
             res.send(user)
         }).catch((err) => {
-            res.status(500).send('Error saving user', err.message)
+            res.status(500).send(('Error saving user', err.message).toString())
+        })
+}
+
+// Login 
+/*  Note: for login we need to perform some special validation. Because mongoose will give methods for CRUD operations only
+    Login validations steps:
+        1st check for email to be existed in our DB
+        2nd check if password is matching or not
+        
+    Instead of writing that logic in the below method we need to have a generic MONGOOSE method like find, findById, findByIdAndUpdate
+    For that we need to creat a custom method in model file. So tht we can use that method at any place
+*/
+const loginUser = async(req, res) => {
+    const email = req.body.email
+    const password = req.body.password
+        // isValidUser is a custome mongoose model method
+    await User.isValidUser(email, password)
+        .then((user) => {
+            if (!user) {
+                res.status(404).send('Is not a valid user')
+            }
+            res.send(user)
+        }).catch((err) => {
+            res.status(500).send(('Error while checking', err.message).toString())
         })
 }
 
@@ -78,5 +102,6 @@ module.exports = {
     getAllUsers,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    loginUser
 }

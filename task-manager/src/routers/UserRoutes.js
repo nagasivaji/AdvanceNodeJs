@@ -7,7 +7,8 @@ const {
     getUser,
     getAllUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    loginUser
 } = require('./../controllers/UserController')
 
 
@@ -18,6 +19,7 @@ userRouter.get('/:userId', getUser)
 userRouter.post('/', createUser)
 userRouter.patch('/:userId', updateUser)
 userRouter.delete('/:userId', deleteUser)
+userRouter.post('/login', loginUser)
 
 // Export
 module.exports = userRouter

@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+        unique: true,
         required: true,
         trim: true,
         lowercase: true,
@@ -47,19 +48,37 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+// Custom Mongoose model methods
+userSchema.statics.isValidUser = async(email, password) => {
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        throw new Error('Unable to find user')
+    }
+
+    const isPasswordMatching = await bcrypt.compare(password, user.password)
+
+    if (!isPasswordMatching) {
+        throw new Error('Password mismatch')
+    }
+
+    return user
+}
+
+
 
 // Middleware configuration
 userSchema.pre('save', async function(next) {
-    // console.log(this)
     this.password = await bcrypt.hash(this.password, 8)
     next()
 })
 
 userSchema.pre('findOneAndUpdate', async function(next) {
-    // console.log(this._update)
     this._update.password = await bcrypt.hash(this._update.password, 8)
     next()
 })
+
+
 
 // Creating User Model 
 const User = mongoose.model('User', userSchema)
