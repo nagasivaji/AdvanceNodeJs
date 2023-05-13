@@ -16,7 +16,7 @@ const createUser = async(req, res) => {
 
 
 const getAllUsers = async(req, res) => {
-    await User.find()
+    await User.find({}, { name: 1, age: 1, email: 1 })
         .then((users) => {
             res.send(users)
         }).catch((err) => {
@@ -28,7 +28,7 @@ const getAllUsers = async(req, res) => {
 const getUser = async(req, res) => {
     const userId = req.params.userId
 
-    await User.findById(userId)
+    await User.findById(userId, { name: 1, age: 1, email: 1 })
         .then((user) => {
             if (!user) {
                 res.status(404).send('No user found')
