@@ -7,6 +7,9 @@ const validator = require('validator')
 // Importing bcrypt module
 const bcrypt = require('bcryptjs')
 
+// Importing token generator module
+const jwt = require('jsonwebtoken')
+
 // Creating mongoose schema
 const userSchema = new mongoose.Schema({
     name: {
@@ -49,6 +52,8 @@ const userSchema = new mongoose.Schema({
 })
 
 // Custom Mongoose model methods
+// Its like a static method in Java which can be accessable to all instances with class Name.
+// We are creating a new method on Model or Table or Collection.
 userSchema.statics.isValidUser = async(email, password) => {
     const user = await User.findOne({ email })
 
@@ -63,6 +68,15 @@ userSchema.statics.isValidUser = async(email, password) => {
     }
 
     return user
+}
+
+// Auth Token generator function
+// It is like a instance method in Java. However instance methods are not accessible with class name.
+// They are only accessible with the instance name.
+
+userSchema.methods.generateToken = async function() {
+    const token = jwt.sign({ id: this._id.toString() }, 'Hello world!!!', { expiresIn: '1 day' })
+    return token
 }
 
 

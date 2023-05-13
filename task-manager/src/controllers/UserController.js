@@ -18,15 +18,16 @@ const loginUser = async(req, res) => {
     const email = req.body.email
     const password = req.body.password
         // isValidUser is a custome mongoose model method
-    await User.isValidUser(email, password)
-        .then((user) => {
-            if (!user) {
-                res.status(404).send('Is not a valid user')
-            }
-            res.send(user)
-        }).catch((err) => {
-            res.status(500).send(('Error while checking', err.message).toString())
-        })
+    try {
+        const user = await User.isValidUser(email, password)
+        const token = await user.generateToken()
+        if (!user) {
+            res.status(404).send('Is not a valid user')
+        }
+        res.send({ user, token })
+    } catch (err) {
+        res.status(500).send(('Error while checking', err.message).toString())
+    }
 }
 
 
