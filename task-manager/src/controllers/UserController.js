@@ -42,9 +42,9 @@ const getUser = async(req, res) => {
 
 const updateUser = async(req, res) => {
     const userId = req.params.userId
-    const userName = req.body.name
+    const user = req.body
 
-    await User.findByIdAndUpdate(userId, { name: userName }, { new: true, runValidators: true })
+    await User.findByIdAndUpdate(userId, user, { new: true, runValidators: true })
         .then((user) => {
             if (!user) {
                 res.status(404).send('No user found')

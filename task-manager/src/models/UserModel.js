@@ -4,8 +4,11 @@ const mongoose = require('mongoose')
 // Importing validator module
 const validator = require('validator')
 
-// Creating User Model 
-const User = mongoose.model('User', {
+// Importing bcrypt module
+const bcrypt = require('bcryptjs')
+
+// Creating mongoose schema
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -43,6 +46,23 @@ const User = mongoose.model('User', {
         }
     }
 })
+
+
+// Middleware configuration
+userSchema.pre('save', async function(next) {
+    // console.log(this)
+    this.password = await bcrypt.hash(this.password, 8)
+    next()
+})
+
+userSchema.pre('findOneAndUpdate', async function(next) {
+    // console.log(this._update)
+    this._update.password = await bcrypt.hash(this._update.password, 8)
+    next()
+})
+
+// Creating User Model 
+const User = mongoose.model('User', userSchema)
 
 // Exportgin User Model
 module.exports = User
