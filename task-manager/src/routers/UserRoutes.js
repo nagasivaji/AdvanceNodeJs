@@ -16,7 +16,7 @@ const {
 
 // Express router
 const userRouter = express.Router()
-userRouter.get('/', auth, getAllUsers) // Adding middle ware to required routes
+userRouter.get('/me', auth, getAllUsers) // Adding middle ware to required routes
 userRouter.get('/:userId', getUser)
 userRouter.post('/', createUser)
 userRouter.patch('/:userId', updateUser)

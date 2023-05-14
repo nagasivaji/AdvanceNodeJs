@@ -32,13 +32,19 @@ const loginUser = async(req, res) => {
 }
 
 
+// const getAllUsers = async(req, res) => {
+//     await User.find({}, { name: 1, age: 1, email: 1 })
+//         .then((users) => {
+//             res.send(users)
+//         }).catch((err) => {
+//             res.status(500).send('Error getting users', err.message)
+//         })
+// }
+
+
 const getAllUsers = async(req, res) => {
-    await User.find({}, { name: 1, age: 1, email: 1 })
-        .then((users) => {
-            res.send(users)
-        }).catch((err) => {
-            res.status(500).send('Error getting users', err.message)
-        })
+    // console.log(req.user)
+    res.send(req.user)
 }
 
 
