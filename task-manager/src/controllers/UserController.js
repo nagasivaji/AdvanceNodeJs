@@ -7,7 +7,7 @@ const createUser = async(req, res) => {
     const user = new User(req.body)
 
     try {
-        await user.save()
+        // await user.save()
         const token = await user.generateToken()
         res.send({ user, token })
     } catch (err) {
@@ -63,7 +63,7 @@ const getUser = async(req, res) => {
             }
             res.send(user)
         }).catch((err) => {
-            res.status(500).send('Error getting users', err.message)
+            res.status(500).send(('Error getting users', err.message).toString())
         })
 }
 
