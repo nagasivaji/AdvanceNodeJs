@@ -32,14 +32,19 @@ const loginUser = async(req, res) => {
 }
 
 
-// const getAllUsers = async(req, res) => {
-//     await User.find({}, { name: 1, age: 1, email: 1 })
-//         .then((users) => {
-//             res.send(users)
-//         }).catch((err) => {
-//             res.status(500).send('Error getting users', err.message)
-//         })
-// }
+const logoutUser = async(req, res) => {
+
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+
+        await req.user.save()
+        res.send('Log out Success')
+    } catch (err) {
+        res.send('Error while logout')
+    }
+}
 
 
 const getAllUsers = async(req, res) => {
@@ -102,5 +107,6 @@ module.exports = {
     getUser,
     updateUser,
     deleteUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
