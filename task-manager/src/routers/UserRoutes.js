@@ -1,5 +1,7 @@
 // Importins
 const express = require('express')
+    // Importing middle ware
+const auth = require('../middleware/Auth')
 
 // USer Controllers
 const {
@@ -14,7 +16,7 @@ const {
 
 // Express router
 const userRouter = express.Router()
-userRouter.get('/', getAllUsers)
+userRouter.get('/', auth, getAllUsers) // Adding middle ware to required routes
 userRouter.get('/:userId', getUser)
 userRouter.post('/', createUser)
 userRouter.patch('/:userId', updateUser)
