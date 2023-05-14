@@ -15,6 +15,13 @@ const app = express()
 app.use(express.json())
 
 
+// Middleware 
+app.use((req, res, next) => {
+    console.log(req.path, req.method)
+    next()
+})
+
+
 // Diverting routes
 app.use('/users', userRoutes)
 app.use('/tasks', taskRoutes)

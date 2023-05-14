@@ -1,14 +1,9 @@
-// Importing Mongoose module
+// Importins
 const mongoose = require('mongoose')
-
-// Importing validator module
 const validator = require('validator')
-
-// Importing bcrypt module
 const bcrypt = require('bcryptjs')
-
-// Importing token generator module
 const jwt = require('jsonwebtoken')
+
 
 // Creating mongoose schema
 const userSchema = new mongoose.Schema({
@@ -58,8 +53,7 @@ const userSchema = new mongoose.Schema({
 })
 
 // Custom Mongoose model methods
-// Its like a static method in Java which can be accessable to all instances with class Name.
-// We are creating a new method on Model or Table or Collection.
+// Static methods
 userSchema.statics.isValidUser = async(email, password) => {
     const user = await User.findOne({ email })
 
@@ -68,18 +62,13 @@ userSchema.statics.isValidUser = async(email, password) => {
     }
 
     const isPasswordMatching = await bcrypt.compare(password, user.password)
-
     if (!isPasswordMatching) {
         throw new Error('Password mismatch')
     }
-
     return user
 }
 
-// Auth Token generator function
-// It is like a instance method in Java. However instance methods are not accessible with class name.
-// They are only accessible with the instance name.
-
+// Instanace methods
 userSchema.methods.generateToken = async function() {
     const token = jwt.sign({ id: this._id.toString() }, 'Hello world!!!', { expiresIn: '1 day' })
     this.tokens = this.tokens.concat({ token })
@@ -104,6 +93,5 @@ userSchema.pre('findOneAndUpdate', async function(next) {
 
 // Creating User Model 
 const User = mongoose.model('User', userSchema)
-
-// Exportgin User Model
+    // Exportgin User Model
 module.exports = User
