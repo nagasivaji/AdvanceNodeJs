@@ -48,7 +48,13 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Age cannot be negative')
             }
         }
-    }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            required: true,
+        }
+    }]
 })
 
 // Custom Mongoose model methods
@@ -76,6 +82,8 @@ userSchema.statics.isValidUser = async(email, password) => {
 
 userSchema.methods.generateToken = async function() {
     const token = jwt.sign({ id: this._id.toString() }, 'Hello world!!!', { expiresIn: '1 day' })
+    this.tokens = this.tokens.concat({ token })
+    await this.save()
     return token
 }
 

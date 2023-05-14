@@ -6,12 +6,13 @@ const User = require('../models/UserModel');
 const createUser = async(req, res) => {
     const user = new User(req.body)
 
-    await user.save()
-        .then((user) => {
-            res.send(user)
-        }).catch((err) => {
-            res.status(500).send(('Error saving user', err.message).toString())
-        })
+    try {
+        await user.save()
+        const token = await user.generateToken()
+        res.send({ user, token })
+    } catch (err) {
+        res.status(500).send(('Error saving user', err.message).toString())
+    }
 }
 
 const loginUser = async(req, res) => {
@@ -20,10 +21,10 @@ const loginUser = async(req, res) => {
         // isValidUser is a custome mongoose model method
     try {
         const user = await User.isValidUser(email, password)
-        const token = await user.generateToken()
         if (!user) {
             res.status(404).send('Is not a valid user')
         }
+        const token = await user.generateToken()
         res.send({ user, token })
     } catch (err) {
         res.status(500).send(('Error while checking', err.message).toString())
