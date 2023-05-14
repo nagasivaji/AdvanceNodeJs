@@ -18,7 +18,12 @@ app.use(express.json())
 // Middleware 
 app.use((req, res, next) => {
     console.log(req.path, req.method)
-    next()
+
+    if (req.method === 'GET') {
+        next();
+    } else {
+        res.send('Only read methods are supported. Since site is under maintenance mode. Please wait for end of the day.')
+    }
 })
 
 
