@@ -1,2 +1,4 @@
 1. Filtering data: By passing some conditions in URL using query parameters we can filter data which is going to sent to the client. /tasks?status=completed&somting=somthing... SO from url we are getting what type of data client want and then we will
-use those conditions to filter data when we fetch from db and then that filted data is going to send to the client. 2.
+use those conditions to filter data when we fetch from db and then that filted data is going to send to the client. 2. Pagination: If we have large data like youtube videos, youtube will fetch 10-15 videos first from server then if we scroll down completely
+it will fetch another set of 10-15 videos Insted of fetching all the million videos from youtube server. For that again we use router link. This time we will send two query params from client to server limit and skip Ex: limit=10, skip=0 -> first 10 items
+limit=10, skip=10 -> second 10 items limit=10, skip=5 -> item6 to till item 15 Like wise we will send some packets of info to client. Upon clicking load more btn at bottom or nect page button or scrolled to end we will again fetching
