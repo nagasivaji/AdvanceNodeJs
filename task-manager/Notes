@@ -1,0 +1,2 @@
+1. Filtering data: By passing some conditions in URL using query parameters we can filter data which is going to sent to the client. /tasks?status=completed&somting=somthing... SO from url we are getting what type of data client want and then we will
+use those conditions to filter data when we fetch from db and then that filted data is going to send to the client. 2.
