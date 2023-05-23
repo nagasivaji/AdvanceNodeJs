@@ -12,9 +12,16 @@ const io = socketio(server)
 const publicDirectoryPath = path.join(__dirname, '../public')
 app.use(express.static(publicDirectoryPath))
 
-
-io.on('connection', () => {
+let count = 0
+io.on('connection', (socket) => {
     console.log('New websocket connection established')
+
+    socket.emit('countUpdated', count)
+
+    socket.on('incremenet', () => {
+        count = count + 1
+        socket.emit('countUpdated', count)
+    })
 })
 
 server.listen(3000, () => {
